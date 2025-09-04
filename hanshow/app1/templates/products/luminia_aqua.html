@@ -1,0 +1,54 @@
+ {% extends "base.html" %}
+{% load static %}{% block title %}About{% endblock %}
+
+{% block content %} 
+<section class="product-hero luminia-hero">
+            <div class="container">
+                <h1>Luminia Aqua</h1>
+                <p>Waterproof ESL for Fresh Food Sections</p>
+            </div>
+        </section>
+
+        <section class="product-content">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-image">
+                                                <img src="{% static 'img/luminia_aqua.png'%}">
+
+                    </div>
+                    <div class="product-details">
+                        <h3>Built for Harsh Environments</h3>
+                        <p>The Luminia Aqua is specially designed for fresh food sections, refrigerated areas, and high-humidity environments. With its waterproof design and temperature resistance, it's perfect for grocery stores and supermarkets.</p>
+                        <ul class="product-features">
+                            <li>4.2" waterproof display</li>
+                            <li>IP67 water resistance</li>
+                            <li>Temperature range: -20°C to 60°C</li>
+                            <li>Condensation resistant</li>
+                            <li>Food-grade materials</li>
+                            <li>Easy cleaning surface</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Display</div>
+                        <p>4.2" E-ink display<br>Resolution: 400×300<br>Anti-glare coating<br>Moisture resistant</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Environmental</div>
+                        <p>IP67 waterproof rating<br>Operating: -20°C to 60°C<br>Humidity: 0-95% RH<br>Condensation proof</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Power</div>
+                        <p>Sealed battery compartment<br>5+ years in cold storage<br>Temperature compensation<br>Cold weather optimized</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Physical</div>
+                        <p>Dimensions: 108×78×15mm<br>Weight: 85g<br>Food-grade ABS<br>Sealed construction</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+                {% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}{% block title %}About{% endblock %}
+
+{% block content %} 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ваши сервисные службы в Hanshow — Верстка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#0a4fb3;
+      --red:#e21d2f;
+      --ink:#0b122d;
+      --muted:#6b7280;
+      --bg:#ffffff;
+      --ring-blue:#1c69d4;
+      --ring-yellow:#f0b90b;
+      --ring-cyan:#13b5ea;
+      --ring-orange:#ff7a00;
+      --shadow:0 10px 30px rgba(2,10,31,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+                    padding-top: 80px;
+
+      margin:0;font-family:Inter, sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+    .title{display:flex;align-items:center;gap:16px;flex-wrap:wrap;color:var(--blue);}
+    .title h1{font-size:clamp(24px,3.2vw,44px);margin:0;font-weight:800}
+    .brand{margin-left:auto}
+    .brand img{height:36px;display:block}
+    .grid{display:grid;gap:34px;align-items:start;margin-top:28px;grid-template-columns:repeat(2,minmax(0,1fr));}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .card{position:relative;overflow:hidden;border-radius:var(--radius);background:#fff;padding:22px;box-shadow:var(--shadow);min-height:280px;z-index:0;}
+    .card h2{margin:0 0 10px 0;color:var(--red);font-size:clamp(18px,2.2vw,26px)}
+    .list{margin:0;padding:0 0 0 18px}
+    .list li{margin:6px 0}
+    .bubble{position:absolute;right:14px;top:14px;width:min(38%,180px);aspect-ratio:1/1;border-radius:50%;display:grid;place-items:center;z-index:-1;opacity:0.5;}
+    .bubble::before{content:"";position:absolute;inset:-10px;border-radius:50%;border:10px solid currentColor;opacity:.6;}
+    .bubble img{position:relative;width:80%;height:80%;object-fit:cover;border-radius:12px;box-shadow:var(--shadow);}
+    .bubble.left{left:14px;right:auto}
+    .bubble.bottom{top:auto;bottom:14px}
+    .ring-blue{color:var(--ring-blue)}
+    .ring-yellow{color:var(--ring-yellow)}
+    .ring-cyan{color:var(--ring-cyan)}
+    .ring-orange{color:var(--ring-orange)}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.is-in{opacity:1;transform:none}
+    .page{position:fixed;right:18px;bottom:12px;color:#bdc3cf;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <h1>Ваши сервисные службы в Hanshow</h1>
+    </div>
+
+    <div class="grid">
+      <section class="card reveal">
+        <h2>Команда разработчиков продуктов и технологий</h2>
+        <ol class="list">
+          <li>Анализ продукции ESL, выбор размера/цвета</li>
+          <li>Цифровые вывески</li>
+          <li>Умная тележка</li>
+          <li>Киоск самообслуживания</li>
+        </ol>
+        <div class="bubble ring-blue left"><img alt="Командная встреча" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop"/></div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Команда по разработке бизнес‑кейсов</h2>
+        <ol class="list">
+          <li>Заявка на установление цен</li>
+          <li>Управление запасами</li>
+          <li>Управление готовой продукцией</li>
+          <li>Заявка на онлайн‑подбор заказа</li>
+          <li>Продвижение онлайн‑оффлайн</li>
+        </ol>
+        <div class="bubble ring-cyan"><img alt="Работа с данными" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop"/></div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Сетевая команда</h2>
+        <ol class="list">
+          <li>Проектирование сетевой архитектуры</li>
+          <li>Управление программным обеспечением</li>
+          <li>Централизованная система</li>
+          <li>Лабораторная среда</li>
+        </ol>
+        <div class="bubble ring-yellow left bottom"><img alt="Call‑центр" src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=800&auto=format&fit=crop"/></div>
+      </section>
+
+      <section class="card reveal">
+        <h2>Ознакомительный визит на сайт</h2>
+        <ol class="list">
+          <li>Справочный магазин в Нидерландах</li>
+          <li>Справочный магазин во Франции</li>
+          <li>Справочный магазин в Китае</li>
+        </ol>
+        <div class="bubble ring-orange bottom"><img alt="Договоренность" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop"/></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="page">40</div>
+  <script>
+    const io = new IntersectionObserver((entries)=>{
+      for(const e of entries){
+        if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+      }
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
+{% endblock %}

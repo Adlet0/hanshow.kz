@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% block title %}Hanshow ESL - Home{% endblock %}
+{% load static %}
+
+{% block content %}
+<div id="home" class="page active">
+
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="{% static 'video/girl_in_groceries.mp4' %}" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1 data-i18n="hero_title">Electronic Price Tags Revolution</h1>
+      <p data-i18n="hero_subtitle">Transform your retail experience with smart, efficient, and real-time pricing solutions</p>
+      <a href="{% url 'solutions' %}" class="cta-button" data-i18n="explore_btn">Explore Our Solutions</a>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="features_title">Why Choose Hanshow ESL?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title" data-i18n="feature1_title">Real-time Updates</h3>
+          <p data-i18n="feature1_text">Instant price changes across all locations with wireless connectivity</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3 class="feature-title" data-i18n="feature2_title">Cost Efficient</h3>
+          <p data-i18n="feature2_text">Reduce labor costs by up to 80% with automated pricing</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title" data-i18n="feature3_title">100% Accuracy</h3>
+          <p data-i18n="feature3_text">Eliminate pricing errors completely with digital precision</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌱</div>
+          <h3 class="feature-title" data-i18n="feature4_title">Eco-Friendly</h3>
+          <p data-i18n="feature4_text">Paperless solution for sustainable retail operations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Tabs Section -->
+  <section class="tabs-section">
+    <div class="container">
+      <div class="tabs-navigation">
+        <button class="tab-button active" onclick="showTab('electronic-price-tags')" data-i18n="tab1">ELECTRONIC PRICE TAGS</button>
+        <button class="tab-button" onclick="showTab('smart-store')" data-i18n="tab2">SMART STORE</button>
+        <button class="tab-button" onclick="showTab('aiot-solutions')" data-i18n="tab3">AIOT SOLUTIONS</button>
+        <button class="tab-button" onclick="showTab('stellar-iot')" data-i18n="tab4">STELLAR INTERNET OF THINGS</button>
+      </div>
+
+      <div class="tabs-content">
+        <!-- Electronic Price Tags Tab -->
+        <div id="electronic-price-tags" class="tab active">
+          <div class="tab-grid">
+            <div class="tab-text">
+              <h2 data-i18n="tab1_title">Electronic Price Tags Revolution</h2>
+              <p data-i18n="tab1_text">Transform your retail pricing with our advanced electronic shelf labels. Real-time updates, wireless connectivity, and seamless integration with your existing systems.</p>
+              <div class="tab-features">
+                <div class="tab-feature">
+                  <div class="feature-icon">⚡</div>
+                  <div>
+                    <h4 data-i18n="tab1_f1_title">Instant Updates</h4>
+                    <p data-i18n="tab1_f1_text">Change prices across all locations in seconds</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">💰</div>
+                  <div>
+                    <h4 data-i18n="tab1_f2_title">Cost Reduction</h4>
+                    <p data-i18n="tab1_f2_text">Save up to 80% on labor costs</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">🎯</div>
+                  <div>
+                    <h4 data-i18n="tab1_f3_title">100% Accuracy</h4>
+                    <p data-i18n="tab1_f3_text">Eliminate pricing errors completely</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-visual">
+              <div class="visual-card">
+                <div class="visual-icon">🏷️</div>
+                <h3 data-i18n="tab1_product1">ESL Nebular Pro</h3>
+                <img src="{% static 'img/esl.jpg' %}" alt="ESL картинка" class="visual-img">
+<a href="/solutions/nebular-pro/" class="dropdown-item" data-i18n="ser1_more">More details</a>
+
+                <h3 data-i18n="tab1_product2">ESL Polaris Pro</h3>
+                <img src="{% static 'img/esl1.jpg' %}" alt="ESL картинка" class="visual-img">
+<a href="/solutions/polaris-pro/" class="dropdown-item" data-i18n="ser1_more">More details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Smart Store Tab -->
+        <div id="smart-store" class="tab">
+          <div class="tab-grid">
+            <div class="tab-text">
+              <h2 data-i18n="tab2_title">Smart Store Solutions</h2>
+              <p data-i18n="tab2_text">Create intelligent retail environments with integrated IoT solutions, automated inventory management, and enhanced customer experiences.</p>
+              <div class="tab-features">
+                <div class="tab-feature">
+                  <div class="feature-icon">🏪</div>
+                  <div>
+                    <h4 data-i18n="tab2_f1_title">Store Automation</h4>
+                    <p data-i18n="tab2_f1_text">Fully automated retail operations</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">📊</div>
+                  <div>
+                    <h4 data-i18n="tab2_f2_title">Real-time Analytics</h4>
+                    <p data-i18n="tab2_f2_text">Live insights into store performance</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">🛒</div>
+                  <div>
+                    <h4 data-i18n="tab2_f3_title">Customer Experience</h4>
+                    <p data-i18n="tab2_f3_text">Enhanced shopping journey</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-visual">
+              <div class="visual-card">
+                <div class="visual-icon">🏬</div>
+                <h3 data-i18n="tab2_visual_title">Intelligent Retail</h3>
+                <p data-i18n="tab2_visual_text">Connected store ecosystem with smart shelves, automated checkout, and personalized experiences</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AIOT Solutions Tab -->
+        <div id="aiot-solutions" class="tab">
+          <div class="tab-grid">
+            <div class="tab-text">
+              <h2 data-i18n="tab3_title">AI + IoT Solutions</h2>
+              <p data-i18n="tab3_text">Harness the power of Artificial Intelligence combined with Internet of Things to create predictive, adaptive, and intelligent retail systems.</p>
+              <div class="tab-features">
+                <div class="tab-feature">
+                  <div class="feature-icon">🤖</div>
+                  <div>
+                    <h4 data-i18n="tab3_f1_title">AI-Powered Insights</h4>
+                    <p data-i18n="tab3_f1_text">Machine learning for demand prediction</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">🔗</div>
+                  <div>
+                    <h4 data-i18n="tab3_f2_title">Connected Devices</h4>
+                    <p data-i18n="tab3_f2_text">Seamless IoT device integration</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">⚙️</div>
+                  <div>
+                    <h4 data-i18n="tab3_f3_title">Automated Decisions</h4>
+                    <p data-i18n="tab3_f3_text">Smart algorithms for optimization</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-visual">
+              <div class="visual-card">
+                <div class="visual-icon">🧠</div>
+                <h3 data-i18n="tab3_visual_title">AI + IoT Integration</h3>
+                <p data-i18n="tab3_visual_text">Intelligent systems that learn, adapt, and optimize retail operations automatically</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stellar IoT Tab -->
+        <div id="stellar-iot" class="tab">
+          <div class="tab-grid">
+            <div class="tab-text">
+              <h2 data-i18n="tab4_title">Stellar Internet of Things</h2>
+              <p data-i18n="tab4_text">Next-generation IoT infrastructure with stellar performance, reliability, and scalability for enterprise retail environments.</p>
+              <div class="tab-features">
+                <div class="tab-feature">
+                  <div class="feature-icon">🌟</div>
+                  <div>
+                    <h4 data-i18n="tab4_f1_title">Stellar Performance</h4>
+                    <p data-i18n="tab4_f1_text">Ultra-fast, reliable connectivity</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">🔒</div>
+                  <div>
+                    <h4 data-i18n="tab4_f2_title">Enterprise Security</h4>
+                    <p data-i18n="tab4_f2_text">Military-grade encryption and protection</p>
+                  </div>
+                </div>
+                <div class="tab-feature">
+                  <div class="feature-icon">📈</div>
+                  <div>
+                    <h4 data-i18n="tab4_f3_title">Infinite Scalability</h4>
+                    <p data-i18n="tab4_f3_text">Grow from single store to global chain</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-visual">
+              <div class="visual-card">
+                <div class="visual-icon">🚀</div>
+                <h3 data-i18n="tab4_visual_title">Stellar Network</h3>
+                <p data-i18n="tab4_visual_text">Advanced IoT infrastructure with stellar reliability and performance for mission-critical retail operations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h3 class="partners" data-i18n="partners_title">OUR PARTNERS</h3>
+<div class="marquee-container">
+  <div class="marquee marquee-left">
+    <div class="marquee-content">
+      <img src="{% static 'img/partner1.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner2.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner3.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner4.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner5.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner6.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner7.jpg' %}" alt="logo">
+    </div>
+  </div>
+
+  <div class="marquee marquee-right">
+    <div class="marquee-content">
+      <img src="{% static 'img/partner21.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner22.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner23.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner26.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner25.jpg' %}" alt="logo">
+    </div>
+  </div>
+  <div class="marquee marquee-left">
+    <div class="marquee-content">
+      <img src="{% static 'img/partner31.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner32.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner33.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner34.jpg' %}" alt="logo">
+      <img src="{% static 'img/partner35.jpg' %}" alt="logo">
+    </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}

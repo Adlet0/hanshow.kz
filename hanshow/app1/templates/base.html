@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    
+  </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hanshow ESL{% endblock %}</title>
+    <link rel="stylesheet" href=" {% static 'css/style.css' %}">
+    <script src="{% static 'js/lang.js' %}"></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+    <script src="{% static 'js/backtotop.js' %}" defer></script>
+     <style>
+
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      background: #333;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .back-to-top.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'img/logo2.png' %}" alt="Hanshow ESL Logo" class="logo-img">
+        </a>
+        <ul class="nav-menu" >
+          <li><a href="{% url 'home' %}" class="nav-link" data-i18n="home">Home</a></li>
+          <li><a href="{% url 'about' %}" class="nav-link" data-i18n="about">About Company</a></li>
+          <li class="dropdown">
+            <a href="{% url 'solutions' %}" class="nav-link" data-i18n-html data-i18n="solutions">
+              Solutions <span class="dropdown-arrow">▼</span>
+            </a>
+            <div class="dropdown-content">
+              <a class="dropdown-item" href="{% url 'nebular_pro' %}">Nebular Pro</a>
+              <a class="dropdown-item" href="{% url 'polaris_pro' %}">Polaris Pro</a>
+              <a class="dropdown-item" href="{% url 'hanshow_ap' %}" >Hanshow AP</a>
+              <a class="dropdown-item" href="{% url 'luminia_aqua' %}" >Luminia Aqua</a>
+              <a class="dropdown-item" href="{% url 'solutions' %}" data-i18n="all_solutions">View All Solutions</a>
+            </div>
+          </li>
+          <li><a href="{% url 'services' %}" class="nav-link" data-i18n="services">Services</a></li>
+          <li><a href="{% url 'contact' %}" class="nav-link" data-i18n="contact">Contact</a></li>
+        </ul>
+
+        <!-- Переключатель языка -->
+        <div class="lang-switcher">
+          <button data-lang="en">EN</button>
+          <button data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Контент страниц -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 Hanshow ESL</p>
+    </footer>
+    <button id="backToTop" class="back-to-top">⬆</button>
+
+</body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const scrollBtn = document.getElementById("backToTop");
+      if (scrollBtn) {
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 200) {
+            scrollBtn.classList.add("show");
+          } else {
+            scrollBtn.classList.remove("show");
+          }
+        });
+
+        scrollBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        });
+      }
+    });
+  </script>
+</html>
+

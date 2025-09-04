@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Hanshow ESL - Home{% endblock %}
+{% load static %}
+
+{% block content %}   
+<section class="product-hero nebular-hero">
+    <div class="container"></div>
+</section>
+
+<section class="product-content">
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-image">
+                <img src="{% static 'img/esl.jpg'%}">
+            </div>
+            <div class="product-details">
+                <h3 data-i18n="neb1">Advanced Display Technology</h3>
+                                <h3 data-i18n="tab4_visual_title">Stellar Network</h3>
+
+                <p data-i18n="nebularpro2">
+                    Large screen with high contrast, easy to read from any angle.
+                    Support for displaying text, prices, barcodes, QR codes, and graphics.
+                    Energy-efficient e-Ink technology (low power consumption, long battery life).
+                    The ability to centrally update prices and information through the management system.
+                    It is convenient for promotions, large price tags and highlighting of goods.
+                </p>
+                <ul class="product-features">
+                    <li data-i18n="nebularpro3">6-color screen (BWRYGO)</li>
+                    <li data-i18n="nebularpro4">Degree of protection IP68</li>
+                    <li data-i18n="nebularpro5">60K updates per hour</li>
+                    <li data-i18n="nebularpro6">Super thin design (only 7.8mm thick)</li>
+                    <li data-i18n="nebularpro7">7-color NFC LED backlight</li>
+                    <li data-i18n="nebularpro8">Advanced security encryption</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title" data-i18n="nebularpro9">Technical Specifications</h2>
+        <div class="specs-grid">
+            <div class="spec-card">
+                <div class="spec-title" data-i18n="nebularpro10">Display</div>
+                <p data-i18n="nebularpro11">
+                    Super thin design (only 7.8mm thick). Protection class IP68.  
+                    60K updates per hour. 7-color NFC LED backlight.  
+                    Multi-band display function. Geolocation readiness.
+                </p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title" data-i18n="nebularpro12">Connectivity</div>
+                <p data-i18n="nebularpro13">
+                    2.4GHz WiFi. NFC Support. The patented frequency is below 1 GHz.
+                </p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title" data-i18n="nebularpro14">Power</div>
+                <p data-i18n="nebularpro15">
+                    15 years of battery life (2 updates per day).  
+                    A 6-color screen (BWRYGO). Non-removable battery. Ultra-low power consumption.
+                </p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-title" data-i18n="nebularpro16">Physical</div>
+                <p data-i18n="nebularpro17">
+                    Scratch resistance. Impact resistance up to 400 kg/m².
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

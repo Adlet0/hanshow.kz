@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanshow ESL - Electronic Price Tags Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgb(0, 61, 165);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            z-index: 1001;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #3498db;
+        }
+
+        .dropdown-arrow {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page Styles */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            background: #e74c3c;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .features-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* About Page Styles */
+        .about-hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .about-content {
+            padding: 5rem 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Product Page Styles */
+        .product-hero {
+            padding: 5rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .nebular-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .polaris-hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .hanshow-hero {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .luminia-hero {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .product-content {
+            padding: 5rem 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .product-image {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            font-size: 8rem;
+            color: #6c757d;
+        }
+
+        .product-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .spec-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .spec-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Solutions Page Styles */
+        .solutions-hero {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 5rem 0;
+        }
+
+        .solution-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .solution-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .solution-body {
+            padding: 2rem;
+        }
+
+        .solution-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .solution-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .solution-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        /* Services Page Styles */
+        .services-hero {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .services-content {
+            padding: 5rem 0;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-item:nth-child(even) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .service-item:nth-child(even) .service-icon {
+            order: 2;
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            text-align: center;
+            color: #3498db;
+        }
+
+        .service-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        /* Contact Page Styles */
+        .contact-hero {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .contact-content {
+            padding: 5rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            margin-right: 1rem;
+            font-size: 1.3rem;
+            color: #3498db;
+            width: 30px;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Tabs Section Styles */
+        .tabs-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .tabs-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 15px;
+            padding: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            white-space: nowrap;
+            min-width: fit-content;
+        }
+
+        .tab-button:hover {
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .tabs-content {
+            position: relative;
+        }
+
+        .tab {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .tab.active {
+            display: block;
+        }
+
+        .tab-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .tab-text h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-text p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .tab-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .tab-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-feature:hover {
+            background: #e9ecef;
+            transform: translateX(10px);
+        }
+
+        .tab-feature .feature-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tab-feature h4 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .tab-feature p {
+            color: #666;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .tab-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visual-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: all 0.3s ease;
+        }
+
+        .visual-card:hover {
+            transform: perspective(1000px) rotateY(0deg) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .visual-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .visual-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .visual-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background: linear-gradient(135deg, #2980b9, #1f5f8b);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .scroll-to-top:active {
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                box-shadow: none;
+                background: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid,
+            .contact-grid,
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-item,
+            .service-item:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .service-item:nth-child(even) .service-icon {
+                order: 0;
+            }
+
+            /* Tabs responsive */
+            .tabs-navigation {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.8rem 1rem;
+                font-size: 0.8rem;
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .tab-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .tab-text h2 {
+                font-size: 2rem;
+            }
+
+            .tab-text p {
+                font-size: 1.1rem;
+            }
+
+            .visual-card {
+                transform: none;
+                padding: 2rem 1.5rem;
+            }
+
+            .visual-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">🏷️ Hanshow ESL</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="nav-link active" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('about')">About Company</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link" onclick="showPage('solutions')">Solutions <span class="dropdown-arrow">▼</span></a>
+                    <div class="dropdown-content">
+                        <button class="dropdown-item" onclick="showPage('nebular-pro')">Nebular Pro</button>
+                        <button class="dropdown-item" onclick="showPage('polaris-pro')">Polaris Pro</button>
+                        <button class="dropdown-item" onclick="showPage('hanshow-ap')">Hanshow AP</button>
+                        <button class="dropdown-item" onclick="showPage('luminia-aqua')">Luminia Aqua</button>
+                        <button class="dropdown-item" onclick="showPage('solutions')">View All Solutions</button>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link" onclick="showPage('services')">Services</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+                <!-- Fallback for browsers that don't support video -->
+            </video>
+            <div class="hero-content">
+                <h1>Electronic Price Tags Revolution</h1>
+                <p>Transform your retail experience with smart, efficient, and real-time pricing solutions</p>
+                <a href="#" class="cta-button" onclick="showPage('solutions')">Explore Our Solutions</a>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs Section -->
+        <section class="tabs-section">
+            <div class="container">
+                <div class="tabs-navigation">
+                    <button class="tab-button active" onclick="showTab('electronic-price-tags')">ELECTRONIC PRICE TAGS</button>
+                    <button class="tab-button" onclick="showTab('smart-store')">SMART STORE</button>
+                    <button class="tab-button" onclick="showTab('aiot-solutions')">AIOT SOLUTIONS</button>
+                    <button class="tab-button" onclick="showTab('stellar-iot')">STELLAR INTERNET OF THINGS</button>
+                </div>
+
+                <div class="tabs-content">
+                    <!-- Electronic Price Tags Tab -->
+                    <div id="electronic-price-tags" class="tab active">
+                        <div class="tab-grid">
+                            <div class="tab-text">
+                                <h2>Electronic Price Tags Revolution</h2>
+                                <p>Transform your retail pricing with our advanced electronic shelf labels. Real-time updates, wireless connectivity, and seamless integration with your existing systems.</p>
+                                <div class="tab-features">
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">⚡</div>
+                                        <div>
+                                            <h4>Instant Updates</h4>
+                                            <p>Change prices across all locations in seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">💰</div>
+                                        <div>
+                                            <h4>Cost Reduction</h4>
+                                            <p>Save up to 80% on labor costs</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🎯</div>
+                                        <div>
+                                            <h4>100% Accuracy</h4>
+                                            <p>Eliminate pricing errors completely</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-visual">
+                                <div class="visual-card">
+                                    <div class="visual-icon">🏷️</div>
+                                    <h3>ESL Technology</h3>
+                                    <p>Advanced e-ink displays with wireless connectivity for seamless price management</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart Store Tab -->
+                    <div id="smart-store" class="tab">
+                        <div class="tab-grid">
+                            <div class="tab-text">
+                                <h2>Smart Store Solutions</h2>
+                                <p>Create intelligent retail environments with integrated IoT solutions, automated inventory management, and enhanced customer experiences.</p>
+                                <div class="tab-features">
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🏪</div>
+                                        <div>
+                                            <h4>Store Automation</h4>
+                                            <p>Fully automated retail operations</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">📊</div>
+                                        <div>
+                                            <h4>Real-time Analytics</h4>
+                                            <p>Live insights into store performance</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🛒</div>
+                                        <div>
+                                            <h4>Customer Experience</h4>
+                                            <p>Enhanced shopping journey</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-visual">
+                                <div class="visual-card">
+                                    <div class="visual-icon">🏬</div>
+                                    <h3>Intelligent Retail</h3>
+                                    <p>Connected store ecosystem with smart shelves, automated checkout, and personalized experiences</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AIOT Solutions Tab -->
+                    <div id="aiot-solutions" class="tab">
+                        <div class="tab-grid">
+                            <div class="tab-text">
+                                <h2>AI + IoT Solutions</h2>
+                                <p>Harness the power of Artificial Intelligence combined with Internet of Things to create predictive, adaptive, and intelligent retail systems.</p>
+                                <div class="tab-features">
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🤖</div>
+                                        <div>
+                                            <h4>AI-Powered Insights</h4>
+                                            <p>Machine learning for demand prediction</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🔗</div>
+                                        <div>
+                                            <h4>Connected Devices</h4>
+                                            <p>Seamless IoT device integration</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">⚙️</div>
+                                        <div>
+                                            <h4>Automated Decisions</h4>
+                                            <p>Smart algorithms for optimization</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-visual">
+                                <div class="visual-card">
+                                    <div class="visual-icon">🧠</div>
+                                    <h3>AI + IoT Integration</h3>
+                                    <p>Intelligent systems that learn, adapt, and optimize retail operations automatically</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stellar IoT Tab -->
+                    <div id="stellar-iot" class="tab">
+                        <div class="tab-grid">
+                            <div class="tab-text">
+                                <h2>Stellar Internet of Things</h2>
+                                <p>Next-generation IoT infrastructure with stellar performance, reliability, and scalability for enterprise retail environments.</p>
+                                <div class="tab-features">
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🌟</div>
+                                        <div>
+                                            <h4>Stellar Performance</h4>
+                                            <p>Ultra-fast, reliable connectivity</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">🔒</div>
+                                        <div>
+                                            <h4>Enterprise Security</h4>
+                                            <p>Military-grade encryption and protection</p>
+                                        </div>
+                                    </div>
+                                    <div class="tab-feature">
+                                        <div class="feature-icon">📈</div>
+                                        <div>
+                                            <h4>Infinite Scalability</h4>
+                                            <p>Grow from single store to global chain</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-visual">
+                                <div class="visual-card">
+                                    <div class="visual-icon">🚀</div>
+                                    <h3>Stellar Network</h3>
+                                    <p>Advanced IoT infrastructure with stellar reliability and performance for mission-critical retail operations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">Why Choose Hanshow ESL?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Real-time Updates</h3>
+                        <p>Instant price changes across all locations with wireless connectivity</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">Cost Efficient</h3>
+                        <p>Reduce labor costs by up to 80% with automated pricing</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">100% Accuracy</h3>
+                        <p>Eliminate pricing errors completely with digital precision</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌱</div>
+                        <h3 class="feature-title">Eco-Friendly</h3>
+                        <p>Paperless solution for sustainable retail operations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="about-hero">
+            <div class="container">
+                <h1>About Hanshow ESL</h1>
+                <p>Leading the digital transformation in retail pricing solutions</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="container">
+                <div class="about-grid">
+                    <div>
+                        <h2>Our Story</h2>
+                        <div class="about-text">
+                            <p>Founded in 2012, Hanshow ESL has been at the forefront of electronic shelf label technology, revolutionizing how retailers manage pricing and inventory across the globe.</p>
+                            
+                            <p>With over a decade of innovation and expertise, we've helped thousands of retailers streamline their operations, reduce costs, and improve accuracy through our cutting-edge smart pricing solutions.</p>
+                            
+                            <p>Our commitment to excellence and continuous innovation has made us the trusted partner for retailers worldwide, from small boutiques to large supermarket chains.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-visual">
+                        <h3>Global Presence</h3>
+                        <div style="font-size: 3rem; margin: 1rem 0;">🌍</div>
+                        <p>Serving retailers in over 50 countries worldwide with localized support and solutions</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Our Impact</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">10M+</div>
+                        <div>ESL Tags Deployed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5,000+</div>
+                        <div>Retail Partners</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div>Countries Served</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div>System Reliability</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Nebular Pro Product Page -->
+    <div id="nebular-pro" class="page">
+        <section class="product-hero nebular-hero">
+            <div class="container">
+                <h1>Nebular Pro</h1>
+                <p>Premium 7.5" ESL with Advanced Features</p>
+            </div>
+        </section>
+
+        <section class="product-content">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-image">
+                        🖥️
+                    </div>
+                    <div class="product-details">
+                        <h3>Advanced Display Technology</h3>
+                        <p>The Nebular Pro features a stunning 7.5-inch high-resolution e-ink display with full color support and touch interaction capabilities. Perfect for premium retail environments requiring detailed product information and interactive customer experiences.</p>
+                        <ul class="product-features">
+                            <li>7.5" full-color e-ink display</li>
+                            <li>Touch screen interaction</li>
+                            <li>Video content support</li>
+                            <li>Premium aluminum frame</li>
+                            <li>Wireless charging capability</li>
+                            <li>Advanced security encryption</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Display</div>
+                        <p>7.5" E-ink Carta 1200<br>Resolution: 800×480<br>Colors: 4096 colors<br>Viewing angle: 180°</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Connectivity</div>
+                        <p>2.4GHz WiFi<br>Bluetooth 5.0<br>NFC support<br>Sub-1GHz proprietary</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Power</div>
+                        <p>Rechargeable Li-ion battery<br>Wireless charging<br>5+ years battery life<br>Ultra-low power consumption</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Physical</div>
+                        <p>Dimensions: 185×118×12mm<br>Weight: 180g<br>IP54 rated<br>Operating temp: -10°C to 50°C</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Polaris Pro Product Page -->
+    <div id="polaris-pro" class="page">
+        <section class="product-hero polaris-hero">
+            <div class="container">
+                <h1>Polaris Pro</h1>
+                <p>Versatile 4.2" ESL for Standard Applications</p>
+            </div>
+        </section>
+
+        <section class="product-content">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-image">
+                        💻
+                    </div>
+                    <div class="product-details">
+                        <h3>Perfect Balance of Features</h3>
+                        <p>The Polaris Pro offers the ideal combination of functionality and cost-effectiveness with its 4.2-inch display. Designed for medium-sized products with enhanced visibility and detailed product information display capabilities.</p>
+                        <ul class="product-features">
+                            <li>4.2" high-resolution display</li>
+                            <li>Red/black/white color support</li>
+                            <li>QR code integration</li>
+                            <li>Temperature monitoring</li>
+                            <li>Robust mounting system</li>
+                            <li>Fast update speeds</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Display</div>
+                        <p>4.2" E-ink display<br>Resolution: 400×300<br>Colors: Red/Black/White<br>High contrast ratio</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Connectivity</div>
+                        <p>2.4GHz proprietary<br>Long-range communication<br>Mesh network support<br>Auto-reconnection</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Power</div>
+                        <p>CR2450 battery<br>5+ years battery life<br>Low power design<br>Battery level monitoring</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Physical</div>
+                        <p>Dimensions: 105×75×12mm<br>Weight: 65g<br>IP65 rated<br>Durable ABS housing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hanshow AP Product Page -->
+    <div id="hanshow-ap" class="page">
+        <section class="product-hero hanshow-hero">
+            <div class="container">
+                <h1>Hanshow AP</h1>
+                <p>Compact 2.13" ESL for Small Items</p>
+            </div>
+        </section>
+
+        <section class="product-content">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-image">
+                        📱
+                    </div>
+                    <div class="product-details">
+                        <h3>Compact and Efficient</h3>
+                        <p>The Hanshow AP is our most compact ESL solution, perfect for small items and shelf edges. Despite its small size, it delivers exceptional performance with high contrast display and reliable wireless connectivity.</p>
+                        <ul class="product-features">
+                            <li>2.13" compact display</li>
+                            <li>High contrast e-ink</li>
+                            <li>Ultra-low power consumption</li>
+                            <li>Multiple mounting options</li>
+                            <li>Weather resistant design</li>
+                            <li>Cost-effective solution</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Display</div>
+                        <p>2.13" E-ink display<br>Resolution: 250×122<br>Black and white<br>Wide viewing angle</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Connectivity</div>
+                        <p>2.4GHz wireless<br>Long-range capability<br>Reliable transmission<br>Network redundancy</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Power</div>
+                        <p>CR2032 battery<br>5+ years battery life<br>Ultra-low power mode<br>Sleep optimization</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Physical</div>
+                        <p>Dimensions: 59×29×9mm<br>Weight: 25g<br>IP54 protection<br>Compact form factor</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Luminia Aqua Product Page -->
+    <div id="luminia-aqua" class="page">
+        <section class="product-hero luminia-hero">
+            <div class="container">
+                <h1>Luminia Aqua</h1>
+                <p>Waterproof ESL for Fresh Food Sections</p>
+            </div>
+        </section>
+
+        <section class="product-content">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-image">
+                        🌊
+                    </div>
+                    <div class="product-details">
+                        <h3>Built for Harsh Environments</h3>
+                        <p>The Luminia Aqua is specially designed for fresh food sections, refrigerated areas, and high-humidity environments. With its waterproof design and temperature resistance, it's perfect for grocery stores and supermarkets.</p>
+                        <ul class="product-features">
+                            <li>4.2" waterproof display</li>
+                            <li>IP67 water resistance</li>
+                            <li>Temperature range: -20°C to 60°C</li>
+                            <li>Condensation resistant</li>
+                            <li>Food-grade materials</li>
+                            <li>Easy cleaning surface</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Display</div>
+                        <p>4.2" E-ink display<br>Resolution: 400×300<br>Anti-glare coating<br>Moisture resistant</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Environmental</div>
+                        <p>IP67 waterproof rating<br>Operating: -20°C to 60°C<br>Humidity: 0-95% RH<br>Condensation proof</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Power</div>
+                        <p>Sealed battery compartment<br>5+ years in cold storage<br>Temperature compensation<br>Cold weather optimized</p>
+                    </div>
+                    <div class="spec-card">
+                        <div class="spec-title">Physical</div>
+                        <p>Dimensions: 108×78×15mm<br>Weight: 85g<br>Food-grade ABS<br>Sealed construction</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Solutions Overview Page -->
+    <div id="solutions" class="page">
+        <section class="solutions-hero">
+            <div class="container">
+                <h1>Our Solutions</h1>
+                <p>Comprehensive ESL solutions for every retail environment</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="solutions-grid">
+                <div class="solution-card" onclick="showPage('nebular-pro')">
+                    <div class="solution-header">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🖥️</div>
+                        <h3>Nebular Pro</h3>
+                        <p>Premium 7.5" Solution</p>
+                    </div>
+                    <div class="solution-body">
+                        <p>Large format displays for premium products, detailed descriptions, and interactive promotional content.</p>
+                        <ul class="solution-features">
+                            <li>7.5 inch premium display</li>
+                            <li>Full color support</li>
+                            <li>Touch interaction</li>
+                            <li>Video content capability</li>
+                            <li>Premium mounting system</li>
+                            <li>Advanced features</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card" onclick="showPage('polaris-pro')">
+                    <div class="solution-header">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">💻</div>
+                        <h3>Polaris Pro</h3>
+                        <p>Standard 4.2" Solution</p>
+                    </div>
+                    <div class="solution-body">
+                        <p>Ideal for medium-sized products with enhanced visibility and detailed product information display.</p>
+                        <ul class="solution-features">
+                            <li>4.2 inch high-res display</li>
+                            <li>Color accent support</li>
+                            <li>QR code integration</li>
+                            <li>Temperature monitoring</li>
+                            <li>Advanced security features</li>
+                            <li>Promotional content display</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card" onclick="showPage('hanshow-ap')">
+                    <div class="solution-header">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+                        <h3>Hanshow AP</h3>
+                        <p>Compact 2.13" Solution</p>
+                    </div>
+                    <div class="solution-body">
+                        <p>Perfect for small items and shelf edges with high contrast e-ink display and wireless connectivity.</p>
+                        <ul class="solution-features">
+                            <li>2.13 inch e-ink display</li>
+                            <li>5-year battery life</li>
+                            <li>Wireless updates</li>
+                            <li>Weather resistant</li>
+                            <li>Multiple mounting options</li>
+                            <li>Cost-effective solution</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="solution-card" onclick="showPage('luminia-aqua')">
+                    <div class="solution-header">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🌊</div>
+                        <h3>Luminia Aqua</h3>
+                        <p>Waterproof Solution</p>
+                    </div>
+                    <div class="solution-body">
+                        <p>Specially designed for fresh food sections and high-humidity environments with waterproof protection.</p>
+                        <ul class="solution-features">
+                            <li>IP67 waterproof rating</li>
+                            <li>Temperature resistant</li>
+                            <li>Food-grade materials</li>
+                            <li>Easy cleaning surface</li>
+                            <li>Condensation resistant</li>
+                            <li>Fresh food optimized</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <section class="services-hero">
+            <div class="container">
+                <h1>Our Services</h1>
+                <p>Complete support from consultation to maintenance</p>
+            </div>
+        </section>
+
+        <section class="services-content">
+            <div class="container">
+                <div class="service-item">
+                    <div class="service-icon">🔍</div>
+                    <div class="service-details">
+                        <h3>Consultation & Planning</h3>
+                        <p>Our experts analyze your retail environment and design the optimal ESL solution tailored to your specific needs. We conduct thorough site surveys, assess your current systems, and create detailed implementation plans that ensure seamless integration with your existing infrastructure.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">⚙️</div>
+                    <div class="service-details">
+                        <h3>Installation & Setup</h3>
+                        <p>Professional installation services ensure your ESL system is deployed correctly and efficiently. Our certified technicians handle everything from hardware mounting to network configuration, ensuring minimal disruption to your daily operations while maximizing system performance.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">🔗</div>
+                    <div class="service-details">
+                        <h3>System Integration</h3>
+                        <p>Seamless integration with your existing POS systems, inventory management, and ERP solutions. We provide custom APIs and middleware solutions that enable real-time data synchronization and automated price updates across all your retail channels.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">📚</div>
+                    <div class="service-details">
+                        <h3>Training & Support</h3>
+                        <p>Comprehensive training programs for your staff to maximize the benefits of your ESL system. We provide hands-on training, detailed documentation, and ongoing support to ensure your team can effectively manage and maintain the system.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">🛠️</div>
+                    <div class="service-details">
+                        <h3>Maintenance & Updates</h3>
+                        <p>Proactive maintenance services and regular system updates keep your ESL solution running at peak performance. Our remote monitoring capabilities allow us to identify and resolve issues before they impact your operations, ensuring maximum uptime.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon">📊</div>
+                    <div class="service-details">
+                        <h3>Analytics & Reporting</h3>
+                        <p>Advanced analytics and reporting tools provide valuable insights into your pricing strategies, customer behavior, and operational efficiency. Generate custom reports, track performance metrics, and make data-driven decisions to optimize your retail operations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="contact-hero">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>Get in touch with our ESL experts</p>
+            </div>
+        </section>
+
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <div class="contact-item">
+                            <i>📍</i>
+                            <div>
+                                <strong>Headquarters</strong><br>
+                                123 Innovation Drive<br>
+                                Tech City, TC 12345
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i>📞</i>
+                            <div>
+                                <strong>Phone</strong><br>
+                                +1 (555) 123-4567
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i>✉️</i>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@hanshow-esl.com
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i>🌐</i>
+                            <div>
+                                <strong>Website</strong><br>
+                                www.hanshow-esl.com
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 2rem;">Business Hours</h3>
+                        <div class="contact-item">
+                            <i>🕒</i>
+                            <div>
+                                Monday - Friday: 9:00 AM - 6:00 PM<br>
+                                Saturday: 10:00 AM - 4:00 PM<br>
+                                Sunday: Closed
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Company Name</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" placeholder="Tell us about your ESL needs and how we can help..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+        ↑
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Hanshow ESL Solutions. All rights reserved. | Transforming Retail with Smart Technology</p>
+        </div>
+    </footer>
+
+    <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Find and activate the correct nav link
+            if (pageId === 'home') {
+                document.querySelector('.nav-link[onclick="showPage(\'home\')"]').classList.add('active');
+            } else if (pageId === 'about') {
+                document.querySelector('.nav-link[onclick="showPage(\'about\')"]').classList.add('active');
+            } else if (['solutions', 'nebular-pro', 'polaris-pro', 'hanshow-ap', 'luminia-aqua'].includes(pageId)) {
+                document.querySelector('.nav-link[onclick="showPage(\'solutions\')"]').classList.add('active');
+            } else if (pageId === 'services') {
+                document.querySelector('.nav-link[onclick="showPage(\'services\')"]').classList.add('active');
+            } else if (pageId === 'contact') {
+                document.querySelector('.nav-link[onclick="showPage(\'contact\')"]').classList.add('active');
+            }
+            
+            // Close mobile menu if open
+            document.getElementById('nav-menu').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Tab navigation
+        function showTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+            
+            // Find and activate the correct tab button
+            const activeButton = document.querySelector(`[onclick="showTab('${tabId}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+        }
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const company = formData.get('company');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+            
+            // Simulate form submission
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert(`Thank you ${name}! Your message has been received. We'll get back to you within 24 hours at ${email}.`);
+                e.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Scroll to top functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            // Navbar background on scroll
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+            
+            // Show/hide scroll to top button
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .solution-card, .service-item, .stat-item, .spec-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9750b3a5b6a9e4c1',t:'MTc1NjE4Mzc1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}{% block title %}About{% endblock %}
+
+{% block content %}    
+<section class="solutions-hero">
+    <div class="container">
+        <h1 data-i18n="sol1">Our Solutions</h1>
+        <p data-i18n="sol2">Comprehensive ESL solutions for every retail environment</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="solutions-grid">
+        <a href="{% url 'nebular_pro' %}" class="solution-card-link">
+        <div class="solution-card" onclick="showPage('nebular-pro')">
+            <div class="solution-header nebular-pro"></div>
+            <div class="solution-body">
+                <h3 data-i18n="sol3">Nebular Pro</h3>
+                <p data-i18n="sol4">Premium 7.5" Solution</p>
+                <p data-i18n="sol5">Large format displays for premium products, detailed descriptions, and interactive promotional content.</p>
+                <ul class="solution-features">
+                    <li data-i18n="sol6">7.5 inch premium display</li>
+                    <li data-i18n="sol7">Full color support</li>
+                    <li data-i18n="sol8">Touch interaction</li>
+                    <li data-i18n="sol9">Video content capability</li>
+                    <li data-i18n="sol10">Premium mounting system</li>
+                    <li data-i18n="sol11">Advanced features</li>
+                </ul>
+            </div>
+        </div>
+        </a>
+
+<a href="{% url 'polaris_pro' %}" class="solution-card-link">
+    <div class="solution-card">
+        <div class="solution-header polaris-pro"></div>
+        <div class="solution-body">
+            <h3 data-i18n="sol12">Polaris Pro</h3>
+            <p data-i18n="sol13">Standard 4.2" Solution</p>
+            <p data-i18n="sol14">
+                Ideal for medium-sized products with enhanced visibility and detailed product information display.
+            </p>
+            <ul class="solution-features">
+                <li data-i18n="sol15">4.2 inch high-res display</li>
+                <li data-i18n="sol16">Color accent support</li>
+                <li data-i18n="sol17">QR code integration</li>
+                <li data-i18n="sol18">Temperature monitoring</li>
+                <li data-i18n="sol19">Advanced security features</li>
+                <li data-i18n="sol20">Promotional content display</li>
+            </ul>
+        </div>
+    </div>
+</a>
+
+
+        <a href="{% url 'hanshow_ap' %}" class="solution-card-link">
+
+        <div class="solution-card" onclick="showPage('hanshow-ap')">
+            <div class="solution-header hanshow-ap"></div>
+            <div class="solution-body">
+                <h3 data-i18n="sol21">Hanshow AP</h3>
+                <p data-i18n="sol22">Compact 2.13" Solution</p>
+                <p data-i18n="sol23">Perfect for small items and shelf edges with high contrast e-ink display and wireless connectivity.</p>
+                <ul class="solution-features">
+                    <li data-i18n="sol24">2.13 inch e-ink display</li>
+                    <li data-i18n="sol25">5-year battery life</li>
+                    <li data-i18n="sol26">Wireless updates</li>
+                    <li data-i18n="sol27">Weather resistant</li>
+                    <li data-i18n="sol28">Multiple mounting options</li>
+                    <li data-i18n="sol29">Cost-effective solution</li>
+                </ul>
+            </div>
+        </div>
+        </a>
+
+        <a href="{% url 'luminia_aqua' %}" class="solution-card-link">
+
+        <div class="solution-card" onclick="showPage('luminia-aqua')">
+            <div class="solution-header luminia-aqua"></div>
+            <div class="solution-body">
+                <h3 data-i18n="sol30">Luminia Aqua</h3>
+                <p data-i18n="sol31">Waterproof Solution</p>
+                <p data-i18n="sol32">Specially designed for fresh food sections and high-humidity environments with waterproof protection.</p>
+                <ul class="solution-features">
+                    <li data-i18n="sol33">IP67 waterproof rating</li>
+                    <li data-i18n="sol34">Temperature resistant</li>
+                    <li data-i18n="sol35">Food-grade materials</li>
+                    <li data-i18n="sol36">Easy cleaning surface</li>
+                    <li data-i18n="sol37">Condensation resistant</li>
+                    <li data-i18n="sol38">Fresh food optimized</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="advantages" class="advantages-section">
+    <div class="advantages-content">
+        <div class="text-block">
+            <h2 data-i18n="sol39">Advantages of electronic price tags</h2>
+            <ul>
+                <li data-i18n="sol40">Eliminates the need to manually update price tags</li>
+                <li data-i18n="sol41">Eliminates the discrepancy between the price tag and the price at the checkout</li>
+                <li data-i18n="sol42">Centralized remote price management across the entire store network (via SaaS)</li>
+                <li data-i18n="sol43">Reduces labor costs by allowing staff to focus on customer service</li>
+                <li data-i18n="sol44">Improves the appearance of the store</li>
+                <li data-i18n="sol45">Accelerates the collection of orders</li>
+                <li data-i18n="sol46">More information about the product for buyers</li>
+                <li data-i18n="sol47">Reduces the time it takes to detect missing items and replenish them.</li>
+            </ul>
+        </div>
+        <div class="image-block">
+            <img src="{% static 'img/pricetag.jpg' %}" alt="Электронный ценник" class="price-tag">
+        </div>
+    </div>
+</section>
+
+<section class="section-sustain">
+    <h1 data-i18n="sol48">ESL Functions</h1>
+    <div class="cards">
+
+        <div class="card-sustain">
+            <img src="{% static 'img/card1.jpg' %}" alt="Устойчивость для клиентов">
+            <div class="card-content">
+                <h3 data-i18n="sol49">The retailer</h3>
+                <ul>
+                    <li data-i18n="sol50">Dynamic pricing</li>
+                    <li data-i18n="sol51">Out-of-stock status</li>
+                    <li data-i18n="sol52">Out-of-stock status</li>
+                    <li data-i18n="sol53">Omnichannel retail</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-sustain">
+            <img src="{% static 'img/card2.jpg' %}" alt="Экологизация цепочки поставок">
+            <div class="card-content">
+                <h3 data-i18n="sol54">Consumer</h3>
+                <ul>
+                    <li data-i18n="sol55">Promotion Notifications</li>
+                    <li data-i18n="sol56">QR code, navigation on the map</li>
+                    <li data-i18n="sol57">Online ordering, tracking of product information</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-sustain">
+            <img src="{% static 'img/card3.jpg' %}" alt="Канал монетизации">
+            <div class="card-content">
+                <h3 data-i18n="sol58">Brand</h3>
+                <ul>
+                    <li data-i18n="sol59">Product Information</li>
+                    <li data-i18n="sol60">Notification of shortage</li>
+                    <li data-i18n="sol61">Marketing and coupons at the SKU level</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="section-flow">
+    <h1 data-i18n="sol62">How the ESL system works</h1>
+    <div class="flow-container">
+        <div class="flow-item">
+            <img src="{% static 'img/icon-mobile.jpg' %}" alt="Мобильное устройство">
+            <p data-i18n="sol63">Mobile device</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-item">
+            <img src="{% static 'img/icon-computer.png' %}" alt="Компьютер">
+            <p data-i18n="sol64">Computer</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-item">
+            <img src="{% static 'img/icon-adapter.jpg' %}" alt="Контроллер ESL">
+            <p data-i18n="sol65">ESL Controller</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-item">
+            <img src="{% static 'img/icon-pricetag.jpg' %}" alt="Электронный ценник">
+            <p data-i18n="sol66">Electronic price tag</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
