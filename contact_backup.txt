@@ -32,7 +32,7 @@ def contact_view(request):
             subject,
             full_message,
             settings.EMAIL_HOST_USER,
-            ['adlet0005@gmail.com'],
+            ['your_gmail'],
             fail_silently=False,
         )
 
@@ -80,6 +80,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "adlet0005@gmail.com"
-EMAIL_HOST_PASSWORD = "udwd osue onyq chka"
+EMAIL_HOST_USER = "your gmail"
+EMAIL_HOST_PASSWORD = "password"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
