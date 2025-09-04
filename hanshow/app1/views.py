@@ -32,7 +32,7 @@ def contact_view(request):
             subject,
             full_message,
             settings.EMAIL_HOST_USER,
-            ['adlet0005@gmail.com'],
+            ['your_gmail'],
             fail_silently=False,
         )
 
